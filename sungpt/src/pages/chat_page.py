@@ -44,11 +44,18 @@ def _inject_sidebar_toggle_css():
     """An/hien sidebar bang CSS theo session state"""
     sidebar_open = st.session_state.get("sidebar_open", True)
     if not sidebar_open:
-        # An sidebar hoan toan
+        # An sidebar hoan toan nhung HIỂN THỊ nút điều khiển đóng mở gốc
+        # va ngan chặn display: none tu stToolbar gay mat nut taskbar
         st.markdown("""
         <style>
         [data-testid="stSidebar"] { display: none !important; }
-        [data-testid="stSidebarCollapsedControl"] { display: none !important; }
+        [data-testid="stSidebarCollapsedControl"] { 
+            display: flex !important; 
+            visibility: visible !important;
+        }
+        [data-testid="stToolbar"] {
+            display: flex !important;
+        }
         </style>
         """, unsafe_allow_html=True)
     else:
@@ -101,11 +108,14 @@ def _render_header(show_model=True):
 
     if not sidebar_open:
         # Sidebar dang dong: hien nut hamburger + title + badge
-        col_toggle, col_title, col_badge = st.columns([0.4, 5, 1.5])
+        col_toggle, col_title, col_badge = st.columns([0.6, 5, 1.5])
         with col_toggle:
-            if st.button("☰", key="open_sidebar_btn", help="Mo sidebar"):
+            # Bọc div id open_sidebar_btn de dung chung style CSS dep tu styles.py
+            st.markdown('<div id="open_sidebar_btn">', unsafe_allow_html=True)
+            if st.button("☰", key="open_sidebar_btn_trigger", help="Mo sidebar", use_container_width=True):
                 st.session_state.sidebar_open = True
                 st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
         with col_title:
             _render_title()
         with col_badge:

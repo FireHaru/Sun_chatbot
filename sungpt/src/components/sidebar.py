@@ -13,30 +13,24 @@ from src.utils.format import truncate_text
 def render_sidebar():
     """Render toàn bộ sidebar"""
     with st.sidebar:
-        _render_logo_with_close()
+        _render_logo()
         _render_new_chat_btn()
         st.markdown("<hr style='margin:8px 0'>", unsafe_allow_html=True)
         _render_search()
         _render_conversation_list()
+        st.markdown("<div style='height:170px'></div>", unsafe_allow_html=True)
+
         _render_sidebar_footer()
 
 
-def _render_logo_with_close():
-    """Logo SunGPT + nút đóng sidebar"""
-    col_logo, col_close = st.columns([4, 1])
-    with col_logo:
-        st.markdown("""
-        <div class="sungpt-logo">
-            <span class="sungpt-logo-icon">☀️</span>
-            <span class="sungpt-logo-text">SunGPT</span>
-        </div>
-        """, unsafe_allow_html=True)
-    with col_close:
-        st.markdown("<div style='padding-top:10px'>", unsafe_allow_html=True)
-        if st.button("✕", key="close_sidebar_btn", help="Thu gọn sidebar"):
-            st.session_state.sidebar_open = False
-            st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
+def _render_logo():
+    """Logo SunGPT"""
+    st.markdown("""
+    <div class="sungpt-logo">
+        <span class="sungpt-logo-icon">☀️</span>
+        <span class="sungpt-logo-text">SunGPT</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def _render_new_chat_btn():

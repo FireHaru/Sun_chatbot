@@ -60,10 +60,16 @@ def inject_styles():
 #MainMenu { visibility: hidden !important; }
 footer { visibility: hidden !important; }
 .stDeployButton { display: none !important; }
-[data-testid="stToolbar"] { display: none !important; }
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
 .viewerBadge_container__1QSob { display: none !important; }
+
+/* ÉP HIỂN THỊ THANH TASKBAR ĐỂ GIỮ NÚT ĐIỀU KHIỂN GỐC */
+[data-testid="stToolbar"] { 
+    display: flex !important; 
+    visibility: visible !important;
+    opacity: 1 !important;
+}
 
 /* ===== SIDEBAR TOGGLE — luôn hiện nút kéo sidebar ===== */
 [data-testid="stSidebarCollapsedControl"] {
@@ -576,7 +582,22 @@ hr {
     font-size: 12px;
     color: var(--text-muted);
     text-align: center;
+    background: var(--sidebar-bg);
+    z-index: 10;
 }
+
+/* Sidebar full height */
+section[data-testid="stSidebar"] > div {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Prevent overlap */
+section[data-testid="stSidebar"] .block-container {
+    padding-bottom: 90px !important;
+}
+
+
 
 /* ===== LOADING ANIMATION ===== */
 .typing-indicator {
@@ -707,15 +728,12 @@ pre:hover .copy-btn { opacity: 1; }
 }
 
 /* ===== SIDEBAR TOGGLE BUTTON (☰) TRONG HEADER ===== */
-/* Nút ☰ mở sidebar */
-button[data-testid="baseButton-secondary"][kind="secondary"]:has(> div > p:contains("☰")) {
-    background: var(--bg-input) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius-sm) !important;
-    color: var(--text-secondary) !important;
-    font-size: 18px !important;
-    padding: 4px 10px !important;
-    transition: var(--transition) !important;
+/* ÉP HIỂN THỊ LẠI CÁC THÀNH PHẦN ĐIỀU KHIỂN ĐÓNG MỞ */
+[data-testid="stSidebarCollapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    background-color: transparent !important;
+    z-index: 999999 !important;
 }
 
 /* Style chung cho nút toggle open/close sidebar */
@@ -734,6 +752,12 @@ button[data-testid="baseButton-secondary"][kind="secondary"]:has(> div > p:conta
     background: var(--accent-light) !important;
     border-color: var(--border-accent) !important;
     color: var(--accent-primary) !important;
+}
+
+section[data-testid="stSidebar"] > div:first-child {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* ===== STATUS BAR ===== */
