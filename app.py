@@ -1,4 +1,4 @@
-cd """
+"""
 SunGPT - Trợ lý AI chuyên dạy code
 Entry point chính của ứng dụng
 """
